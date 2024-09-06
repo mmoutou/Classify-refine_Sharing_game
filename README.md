@@ -7,7 +7,7 @@ https://github.com/mmoutou/mmutils and to install SPM from https://www.fil.ion.u
 To see the basic structure of the model, you may wish to run:
 
 I. Demonstration, with plots, of a agent beliefs and learning over a single block    
-''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Use function serialDictator09a.m . To do this, proceed as follows:
 1. Copy the present set of files to your computer, under a new folder. You can do this either by downloading and unzipping a zip file, or syncing between this github folder and a ‘local git’ folder.
