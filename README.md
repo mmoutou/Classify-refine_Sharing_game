@@ -8,6 +8,7 @@ To see the basic structure of the model, you may wish to run:
 
 
 I. Demonstration, with plots, of a agent beliefs and learning over a single block
+
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Use function serialDictator09a.m . To do this, proceed as follows:
