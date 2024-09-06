@@ -28,7 +28,7 @@ The graphics demonstrate how responses about the probability of fairness are pro
 
 Please refer to the matlab command line output and standard tutorials of active inference software for more details about the plots, but researchers who encounter difficulties running this code in their own MATLAB systems can contact the corresponding author of the preprint in question, https://www.biorxiv.org/content/10.1101/2023.05.20.541280v1.full.pdf+html  , for support with this software.
 
-II. Demonstration of full likelihood function 
+II. Demonstration of full likelihood function   
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 To see how the full likelihood function operates, you may want to step through spm_mdp_L_vi.m (this is for the winning model version). This includes, apart from the basic structure of each block demonstrated above, how learning takes place between blocks and how parameters that relate to ethnicity bias may change the basic parameters.
