@@ -34,12 +34,12 @@ function mL = spm_mdp_L_vii(P,modStruc,Inp,Resp,details)
 %
 % Fitting routines can use this function to fit model params to data. 
 %
-% Demo/test with: 
-%                       [ HI SI]         [pH0,pS0,initEv,uPrec,initEvRat,wH,wS, mem, desBias,desCorr] 
-% Demo: close all; pOth=[0.9,0.4]; pSel= [0.1,0.3, 2,   0.1,    1.5  ,   6, 6,  0.99,  0.0,     2]; 
-% close all; pOth=[0.9,0.4]; pSel= [0.1,0.33, 1,  1/5,  1,        6, 6, 0.99,  0.0,   5]; [MDPs,modStruc,Inp,Resp] = serialDictator07(pSel,pOth,1); 
-% modStruc.priPar=[[1.01 ,1.01,1.01, 1.01, 1.01 ,10]; [1.01 ,1.01, 2,  2, 2, 10]; [ 0, 0, 0, 0, 0, -46]; [ 1, 1, 100, 100, 100, 46]];   
-% P = spm_vec(modStruc.indexP) ;    test = spm_mdp_L_vi(P,modStruc,Inp,Resp,1); disp(test);  P(5) = P(5)/10; test = spm_mdp_L_iv(P,modStruc,Inp,Resp,1); disp(test); 
+% Demo/test with: [5 lines before  __________ ]
+% First, load a dataset, extract the data for participant 1, block 2 and load the model structure:
+% load('attrssriaAcIn09.mat'); mapMod.Inp = expD09{1}.partner{2}.Inp; mapMod.Resp = expD09{1}.partner{2}.Resp; 
+% load('modStruc09b.mat'); mapMod.mdpStruc = modStruc;
+% Then, run the likelihood function:
+% mL = spm_mdp_L_vi(mapMod.mdpStruc.indexP,mapMod.mdpStruc, mapMod.Inp,mapMod.Resp,1); 
 %__________________________________________________________________________
 debugging = 0;   % will report total sum LL + logPrior if 0, or just the Lattribution if 2,
                  % or just the Lprediction if 1

@@ -115,7 +115,12 @@ corePFair = 1/(1+exp(w0+(HIVal(trueHI)-Ioff)*wH + (SIVal(trueSI)-Ioff)*wS));
 % these low and high- attribute states can only take values from attrV below. iLo and iHi
 % are the indices over attrV for each row of pFHS, for the HI and SI responsible acc. to attrV
 if resNRepo == 6
-    [pFHS, attrV, iLo, iHi, iHS] = pFairHiLoHISI6([w0,wH,wS]);  
+    pFHiLoHS = pFairHiLoHISI6([w0,wH,wS],resNRepo,Ioff);
+    pFHS = pFHiLoHS.pFHS; 
+    attrV = pFHiLoHS.attrV;
+    iLo = pFHiLoHS.iLo;
+    iHi = pFHiLoHS.iHi;
+    iHS = pFHiLoHS.iHS;   
 else
     error('resNRepo~=6 so pFairHiLoHISI6 not appropriate');
 end
@@ -155,6 +160,8 @@ modelStructure.indexP = nat2tr_mdp_L_ii(p4fit); % indexP in transformed space.
 allP = tr2nat_mdp_L_ii(modelStructure.indexP);  % i.e. back to native, for funsies, how inefficient is this way of doing it ha ha ;)
 allP.wH = wH;                allP.wS = wS; 
 allP.desBias = desBias;   
+allP.HIv0 = HIVal;           allP.SIv0 = SIVal; 
+allP.pFHiLoHS = pFHiLoHS;
 allP.desCorr = desCorr;      allP.desFair = desFair;
 allP.resNRepo = resNRepo;    allP.resNHub = resNHub;   
 % No. of levels of desirability for unfair, fair, ... indifferent/neutral :
@@ -222,7 +229,7 @@ B1{2} = B1{1};
 % A : Actual fair ret. depends only on trueHI and trueSI
 %                 returns     trueHI    trueSI   
 % AHub = zeros(retLevN-1,    resNHub,  resNHub); 
-aHub = AHubClassSerDict(allP);                      % initial generative ...
+aHub = AHubClassSerDict(allP, HIVal, SIVal);        % initial generative ...
 aHub(1:2,:,:) = aHub(1:2,:,:) * allP.initEv;        %          ... model likelihoods
 AHub = AHubClassSerDict(allP, HIVal,  SIVal);       % generative process likelihoods
 
@@ -274,7 +281,7 @@ hmmHub.d = d0;                  % prior over initial states
 hmmHub.s = [trueHI, trueSI]';   % true initial state. [resNHub, resNHub] would mean
                                 % highest true HI and SI
 hmmHub.alpha = alphaPrec;
-hmmHub.T = Tsteps1 - 1;         warning('Why hmmHub.T = Tsteps1-1 works??'); 
+hmmHub.T = Tsteps1 - 1;         
 hmmHub.tau   = 12;
 %  fix the names
 hmmHub.Aname = {'returnFairness'};
@@ -452,9 +459,9 @@ for trN = 1:trialN
   % For the d map of the Fairness reporting MDP, we must use the posterior a 
   % of the PREVIOUS trial, or the very starting one:
   if trN > 1
-     mdpF.d = hub2spoke_dFair(hmmHub(trN-1).a{1}, allP);
+     mdpF.d = hub2spoke_dFair(hmmHub(trN-1).a{1}, hmmHub(trN-1).d, allP);
   else
-     mdpF.d = hub2spoke_dFair(hub_a0{1}, allP);   
+     mdpF.d = hub2spoke_dFair(hub_a0{1}, d0, allP);   
   end
   
   % true states for the attribution MDPs. REM columns are within-trial timepoints, 
@@ -467,7 +474,7 @@ for trN = 1:trialN
   %    beliefs about a and d amount to. To derive what the 'hi' and 'lo' states
   %    now amount to, we'll  use the portion of aHub that maps 
   %    from hi-lo HI and SI states to returns.
-  [mdpH, mdpS] = hub2spoke_dAttr(mdpH, mdpS, hmmHub(trN), allP, pFHS, attrV, iLo, iHi, iHS); 
+  [mdpH, mdpS] = hub2spoke_dAttr(mdpH, mdpS, hmmHub(trN), allP ); % , pFHS, attrV, iLo, iHi, iHS); 
   % Test with e.g. squeeze(mdpHI.A{2}(:,3,:)) to see correctness levels for all Hreport when Hbelieved is 3
 
   

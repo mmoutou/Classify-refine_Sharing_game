@@ -11,7 +11,7 @@ function [mdpHI, mdpSI] = hub2spoke_dAttr(mdpHI,mdpSI, mdpHubElement, allP)
   noiseFloor = allP.noiseFloor;
   pFHS = allP.pFHiLoHS.pFHS;
   attrV = allP.pFHiLoHS.attrV;
-  iLo = allP.pFHiLoHS.iLo;                    iLen = length(iLo); 
+  iLo = allP.pFHiLoHS.iLo;                    iLen = length(iLo)^2; 
   iHi = allP.pFHiLoHS.iHi;
   iHS = allP.pFHiLoHS.iHS; 
 
