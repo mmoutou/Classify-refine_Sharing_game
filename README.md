@@ -50,15 +50,21 @@ To see how the full likelihood function operates, you may want to step through s
 load('attrssriaAcIn09.mat'); mapMod.Inp = expD09{1}.partner{2}.Inp; mapMod.Resp = expD09{1}.partner{2}.Resp; load('modStruc09b.mat'); mapMod.mdpStruc = modStruc;
 
 % Then, run the likelihood function:
-mL = spm_mdp_L_vi(mapMod.mdpStruc.indexP,mapMod.mdpStruc,                 mapMod.Inp,mapMod.Resp,1); 
+mL = spm_mdp_L_vi(mapMod.mdpStruc.indexP,mapMod.mdpStruc, mapMod.Inp,mapMod.Resp,1); 
 
 The output structure mL will then contain a detailed record, whose first few items are
       lFair:  Likelihood of 'fair split' data for every trial
+      
         lHI:    Likelihood of 'Harm intent' data for every trial
+        
         lSI:  Likelihood of 'Self interest' data for every trial
+        
         sum:  Sum log likelihood
+        
       pDens: sum posterior density over parameters
+      
       Lfair: Sum-log-llikelihood for 'fair split' responses
+      
       LAttr: Sum log-likelihood for 'attribution' responses.
 
 III. Example of model-fitting through an adaptive grid algorithm 
